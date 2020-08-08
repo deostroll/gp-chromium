@@ -2,4 +2,4 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - command: echo "workspace loaded"
+  - init: mkdir deps chromium && cd deps && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git && export PATH="$PATH:$PWD/depot_tools"
