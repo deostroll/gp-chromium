@@ -1,5 +1,13 @@
 image:
   file: .gitpod.Dockerfile
-
+checkoutLocation: chromium/src/
+ports:
+- port: 6080
 tasks:
-  - init: mkdir deps chromium && cd deps && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git && export PATH="$PATH:$PWD/depot_tools"
+- init: >
+    cd /workspace/chromium &&
+    pyenv local system &&
+    wget https://raw.githubusercontent.com/gitpod-io/definitely-gp/master/chromium/.gclient &&
+    cd src &&
+    gclient sync &&
+    gn gen out/Default --args="enable_nacl=false"
