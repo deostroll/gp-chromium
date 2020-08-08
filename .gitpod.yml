@@ -1,4 +1,5 @@
 image:
   - file: .gitpod.Dockerfile
+
 tasks:
   - command: echo "workspace loaded"
