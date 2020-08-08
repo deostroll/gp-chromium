@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt-get update && apt-get install -y git curl wget \  
+RUN apt-get update && apt-get install -y git curl wget python \  
   && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git /opt/chr/depot_tools
 
 # RUN lsb_release -a && sleep 30
