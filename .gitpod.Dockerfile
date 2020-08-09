@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full-vnc:latest
+FROM ubuntu:18.04
 
 USER root
 
