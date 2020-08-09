@@ -4,6 +4,7 @@ USER root
 
 # Install Chromium build dependencies
 RUN apt update \
+ && apt install curl wget \
  && curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
  && sed -ri 's/\(trusty\|xenial\|bionic\|disco\)/(trusty|xenial|bionic|cosmic|disco)/' /tmp/install-build-deps.sh \
  && chmod +x /tmp/install-build-deps.sh \
