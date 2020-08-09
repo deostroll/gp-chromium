@@ -2,6 +2,9 @@ FROM ubuntu:18.04
 
 USER root
 
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install Chromium build dependencies
 RUN apt update \
  && apt install -y curl wget lsb-release sudo git python \
