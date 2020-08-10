@@ -2,13 +2,13 @@ FROM ubuntu:18.04
 
 USER root
 
-ENV TZ=America/Los_Angeles
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# ENV TZ=America/Los_Angeles
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Install Chromium build dependencies
 RUN apt update \
  && apt install -y curl wget lsb-release sudo git python \
- && curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
+# Install Chromium build dependencies
+RUN sudo env DEBIAN_FRONTEND=noninteractive curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
  && sed -ri 's/\(trusty\|xenial\|bionic\|disco\)/(trusty|xenial|bionic|cosmic|disco)/' /tmp/install-build-deps.sh \
  && chmod +x /tmp/install-build-deps.sh \
  && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
