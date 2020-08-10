@@ -6,7 +6,7 @@ USER root
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt update \
- && apt install -y curl wget lsb-release sudo git python \
+ && apt install -y curl wget lsb-release sudo git python
 # Install Chromium build dependencies
 RUN sudo env DEBIAN_FRONTEND=noninteractive curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
  && sed -ri 's/\(trusty\|xenial\|bionic\|disco\)/(trusty|xenial|bionic|cosmic|disco)/' /tmp/install-build-deps.sh \
