@@ -1,18 +1,14 @@
 FROM ubuntu:18.04
 
 USER root
-
-# ENV TZ=America/Los_Angeles
-# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+# Install Chromium build dependencies
 RUN apt update \
  && apt install -y curl wget lsb-release sudo git python \
-# Install Chromium build dependencies
-RUN sudo env DEBIAN_FRONTEND=noninteractive curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
+ && curl -L https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 --decode > /tmp/install-build-deps.sh \
  && sed -ri 's/\(trusty\|xenial\|bionic\|disco\)/(trusty|xenial|bionic|cosmic|disco)/' /tmp/install-build-deps.sh \
  && chmod +x /tmp/install-build-deps.sh \
  && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
- && /tmp/install-build-deps.sh --no-prompt --no-arm --no-chromeos-fonts --no-nacl \
+ && DEBIAN_FRONTEND=noninteractive /tmp/install-build-deps.sh --no-prompt --no-arm --no-chromeos-fonts --no-nacl \
  && wget -qO /tmp/libgcrypt11.deb https://launchpad.net/ubuntu/+archive/primary/+files/libgcrypt11_1.5.3-2ubuntu4.2_amd64.deb \
  && dpkg -i /tmp/libgcrypt11.deb \
  && rm -rf /tmp/install-build-deps.sh /tmp/libgcrypt11.deb /var/lib/apt/lists/*
